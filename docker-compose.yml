@@ -1,0 +1,20 @@
+version: '3'
+services:
+  db:
+    image: "postgres:alpine"
+    environment:
+      POSTGRES_DB: "postgres"
+      POSTGRES_USER: "db"
+      POSTGRES_PASSWORD: "secret"
+    ports:
+      - "5432:5432"
+
+  #  web:
+  #    build: .
+  #    ports:
+  #      - "5000:5000"
+  #    volumes:
+  #      - .:/app
+
+#  redis:
+#    image: "redis:alpine"
