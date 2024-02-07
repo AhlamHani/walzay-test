@@ -5,6 +5,8 @@ class CreateLocations < ActiveRecord::Migration[7.0]
       t.string :country
 
       t.timestamps
+
+      t.index [:name, :country], unique: true
     end
   end
 end

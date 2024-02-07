@@ -1,4 +1,4 @@
 class Movie < ApplicationRecord
-  has_many :locations
-  has_many :actors
+  has_and_belongs_to_many :locations
+  has_and_belongs_to_many :actors
 end
