@@ -8,4 +8,6 @@ class Movie < ApplicationRecord
       .group(arel_table[:id])
       .select('movies.*, COALESCE(ROUND(AVG(reviews.rating), 1), NULL) as average_rate')
   end
+
+  validates_presence_of :name, :created_at, :updated_at
 end
