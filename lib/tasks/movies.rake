@@ -10,7 +10,7 @@ namespace :movies do
         actor    = Actor.find_or_create_by(name: row['Actor'])
         location = Location.find_or_create_by(name: row['Filming location'], country: row['Country'])
 
-        movie = Movie.find_or_create_by(
+        movie = Movie.find_or_create_by!(
           name:        row['Movie'],
           description: row['Description'],
           year:        row['Year'],

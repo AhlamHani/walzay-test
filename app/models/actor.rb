@@ -3,5 +3,5 @@ class Actor < ApplicationRecord
 
   scope :by_name, ->(name) { where(arel_table[:name].matches("%#{name}%")) }
 
-  validates_presence_of :name, :created_at, :updated_at
+  validates_presence_of :name
 end

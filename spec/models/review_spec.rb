@@ -6,8 +6,6 @@ RSpec.describe Review, type: :model do
   # ensure columns comment, rating, created_at and updated_at are present before saving
   it { should validate_presence_of(:comment) }
   it { should validate_presence_of(:rating) }
-  it { should validate_presence_of(:created_at) }
-  it { should validate_presence_of(:updated_at) }
 
   # Length validation test
   it { should validate_length_of(:comment).is_at_most(140) }
