@@ -1,11 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Location, type: :model do
-  # Validation tests
-  # ensure columns name, created_at and updated_at are present before saving
   it { should validate_presence_of(:name) }
 
-  # Association tests
   describe 'associations' do
     let(:movie) { create(:movie) }
     let(:location) { create(:location, movies: [movie]) }
