@@ -6,9 +6,9 @@ class Movie < ApplicationRecord
   has_many :reviews
 
   scope :with_average_rate, -> do
-    joins(:reviews)
+    left_outer_joins(:reviews)
       .group(arel_table[:id])
-      .select('movies.*, COALESCE(ROUND(AVG(reviews.rating), 1), NULL) as average_rate')
+      .select('movies.*, ROUND(AVG(reviews.rating), 1) as average_rate')
   end
 
   validates_presence_of :name
