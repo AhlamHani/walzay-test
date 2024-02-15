@@ -56,4 +56,10 @@ services:
     volumes:
       - .:/app
     environment:
-      DB_HOST: "db"
+      DB_HOST: db
+      DB_PASSWORD: secret
+      PGHOST: db
+      PGUSER: db
+      PGPASSWORD: secret
+      PGDATABASE: postgres
+      ELASTICSEARCH_URL: "http://elasticsearch:9200"

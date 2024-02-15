@@ -50,7 +50,7 @@ gem "bootsnap", require: false
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  # gem "debug", platforms: %i[ mri mingw x64_mingw ]
   gem 'rubocop', require: false
 end
 
@@ -73,6 +73,8 @@ group :test do
 end
 
 group :development, :test do
+  # gem "debug", platforms: %i[ mri mingw x64_mingw ]
+  gem 'rubocop', require: false
   gem 'rspec-rails', '~> 6.1.0'
   gem 'factory_bot_rails'
   gem 'shoulda-matchers'
@@ -83,3 +85,4 @@ gem 'sidekiq'
 gem 'searchkick'
 gem 'elasticsearch'
 gem 'elasticsearch-rails'
+gem 'sprockets-rails'

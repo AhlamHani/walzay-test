@@ -1,18 +1,9 @@
-# Stage 1: Build
-FROM ruby:3.0.3-alpine as Builder
+FROM ruby:3.0.3
 
-# Install build dependencies
-RUN apk add --update --no-cache \
-      build-base \
-      nodejs \
-      yarn \
-      tzdata \
-      postgresql-dev \
-      git
+RUN apt-get update -qq && apt-get install -y build-essential libpq-dev nodejs postgresql-client curl
 
 WORKDIR /app
 
-# Install gems
 COPY Gemfile Gemfile.lock ./
 RUN bundle config set without 'development test'
 RUN bundle install --jobs 4 --retry 3
@@ -20,18 +11,9 @@ RUN bundle install --jobs 4 --retry 3
 # Copy the application
 COPY . .
 
-# Stage 2: Runtime
-FROM ruby:3.0.3-alpine
-
-# Install runtime dependencies
-RUN apk add --update --no-cache \
-      postgresql-client \
-      tzdata
-
-WORKDIR /app
-
-# Copy from builder
-COPY --from=Builder /app /app
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+ENTRYPOINT ["entrypoint.sh"]
 
 # Expose the port
 EXPOSE 3000
