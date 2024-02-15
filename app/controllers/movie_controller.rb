@@ -1,12 +1,17 @@
+# frozen_string_literal: true
+
 class MovieController < ApplicationController
   def index
     @movies = Movie.with_average_rate
 
-    @movies = @movies.joins(:actors).merge(Actor.by_name(params[:search])) if params[:search]
+    if params[:search].present?
+      ids = Movie.search(params[:search]).pluck(:id)
+      @movies = @movies.where(id: ids)
+    end
 
     if params[:sort]
       sort = params[:sort] == 'average_rate_desc' ? :desc : :asc
-      @movies = @movies.order(average_rate: sort)
+      @movies = @movies.order(average_rate: sort) if params[:sort]
     end
 
     @movies.each(&:enqueue_fetch_poster)

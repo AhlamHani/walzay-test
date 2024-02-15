@@ -9,12 +9,51 @@ services:
     ports:
       - "5432:5432"
 
-  #  web:
-  #    build: .
-  #    ports:
-  #      - "5000:5000"
-  #    volumes:
-  #      - .:/app
+  elasticsearch:
+    image: arm64v8/elasticsearch:8.12.1
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - cluster.name=docker-cluster
+      - http.port=9200
+      - http.cors.enabled=true
+      - http.cors.allow-origin=http://localhost:1358,http://127.0.0.1:1358
+      - http.cors.allow-headers=X-Requested-With,X-Auth-Token,Content-Type,Content-Length,Authorization
+      - http.cors.allow-credentials=true
+      - http.max_content_length=10MB
+      - bootstrap.memory_lock=true
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+    ports:
+      - "9200:9200"
+      - "9300:9300"
 
-#  redis:
-#    image: "redis:alpine"
+  dejavu:
+    image: appbaseio/dejavu:3.6.0-amd64
+    ports:
+        - '1358:1358'
+
+  redis:
+    image: redis:alpine
+    ports:
+      - '6379:6379'
+    restart: unless-stopped
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - 8081:8081
+    restart: unless-stopped
+
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      DB_HOST: "db"
