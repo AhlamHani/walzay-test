@@ -14,8 +14,8 @@ gem pristine nokogiri --version 1.13.1
 docker compose up
 ```
 
-| Service | URL |
-|---------|-----|
-| Web | http://localhost:3000 |
-| Redis-compose | http://localhost:8081 |
-| Dejavu | http://localhost:1358 |
+| Service         | URL                   |
+|-----------------|-----------------------|
+| Web             | http://localhost:3000 |
+| Redis-commander | http://localhost:8081 |
+| Dejavu          | http://localhost:1358 |
