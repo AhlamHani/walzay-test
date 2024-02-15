@@ -17,6 +17,7 @@ done
 echo "Elasticsearch is up"
 
 echo "Running migrations and rake tasks"
+rails db:prepare
 rails db:migrate
 rails movies:import
 rails reviews:import
