@@ -2,26 +2,40 @@
   <%= form.text_field :search,
                       placeholder: "Search by actor",
                       onchange:    "this.form.submit();",
-                      value:       params[:search] %>
+                      value:       params[:search],
+                      class:       'form-control mr-sm-2' %>
 
   <%= select_tag :sort,
                  options_for_select(
                    [['Select sorting', ''],
-                    ['Most rated', 'average_rate_desc'],
+                    ['Top rated', 'average_rate_desc'],
                     ['Least rated', 'average_rate_asc'],
                    ],
                    selected: params[:sort]
                  ),
-                 onchange: "this.form.submit();"
+                 onchange: "this.form.submit();",
+                 class:    'custom-select mr-sm-2'
   %>
+  <%= form.submit 'Search', class: 'btn btn-outline-success my-2 my-sm-0' %>
 <% end %>
 
-<div class="movies">
-  <% @movies.each do |movie| %>
-    <div class="movie-card">
-      <h2><%= movie.name %></h2>
-      <p>Director: <%= movie.director %></p>
-      <p>Average Rate: <%= movie.average_rate %></p>
-    </div>
-  <% end %>
+<div class="container">
+  <h2>Movie List</h2>
+  <ul class="cards">
+    <% @movies.each do |movie| %>
+      <li class="card">
+        <div>
+          <img class="card-img-top" src="<%= movie.poster_url %>" alt="<%= movie.name %>">
+          <h3 class="card-title"><%= movie.name %></h3>
+          <div class="card-content">
+            <p>Director: <%= movie.director %></p>
+            <p>Average Rate: <%= movie.average_rate %></p>
+          </div>
+        </div>
+        <div class="card-link-wrapper">
+          <a href="<%= movie.imdb_url %>" class="card-link">Learn More</a>
+        </div>
+      </li>
+    <% end %>
+  </ul>
 </div>
