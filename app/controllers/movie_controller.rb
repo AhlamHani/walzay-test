@@ -10,6 +10,6 @@ class MovieController < ApplicationController
     end
 
     @movies.each(&:enqueue_fetch_poster)
-    Movie.wait_the_thread_pool!
+    Movie.wait_for_all_pool_tasks!
   end
 end
